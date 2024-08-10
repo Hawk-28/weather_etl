@@ -103,7 +103,7 @@ def load(transformed_data):
     csv_buffer = StringIO()
     transformed_data.to_csv(csv_buffer, index= False)
     s3 = boto3.client('s3', region_name= 'us-east-1')
-    bucket_name = 'bucket-for-etl'
+    bucket_name = 'Your bucket name'
     file_name = 'rep.csv'
     s3.put_object(Bucket=bucket_name, Key=file_name, Body=csv_buffer.getvalue())
 
