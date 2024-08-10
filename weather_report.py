@@ -4,9 +4,18 @@ import numpy as np
 import boto3
 from io import StringIO
 import os
+from dotenv import load_dotenv
+
+# loading Access API keys and AWS credentials for .env file
+load_dotenv()
+
+API_key= os.getenv('OPENWEATHER_API_KEY')
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+aws_bucket_name = os.getenv('AWS_BUCKET_NAME')
 
 #API key and URL
-api_key = 'Replace with your API key'  
+api_key = API_key 
 base_url = 'http://api.openweathermap.org/data/2.5/weather'
 
 ##Extracting starts here
@@ -53,7 +62,7 @@ def extract():
     df = df[df['country'].isin(con)]
 
     # selecting 6 cities from each countries due to restriction of API hits
-    df = df.groupby('country').head(6)
+    df = df.groupby('country').head(2)
     
     # Fetch weather data for each city
     weather_data = []
@@ -98,13 +107,13 @@ def transform(extracted_data):
 ## loading data to S3 bucket
 
 def load(transformed_data):
-    os.environ['AWS_ACCESS_KEY_ID'] = 'Your AWS_ACCESS_KEY_ID'
-    os.environ['AWS_SECRET_ACCESS_KEY'] = 'Your AWS_SECRET_ACCESS_KEY'
+    os.environ['AWS_ACCESS_KEY_ID'] = aws_access_key_id
+    os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret_access_key
     csv_buffer = StringIO()
     transformed_data.to_csv(csv_buffer, index= False)
     s3 = boto3.client('s3', region_name= 'us-east-1')
-    bucket_name = 'Your bucket name'
-    file_name = 'rep.csv'
+    bucket_name = aws_bucket_name
+    file_name = 'repo.csv'
     s3.put_object(Bucket=bucket_name, Key=file_name, Body=csv_buffer.getvalue())
 
 new = extract()
