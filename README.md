@@ -78,3 +78,8 @@ Due to API hit limitations, the script reduces the number of rows in the DataFra
 
 ## Project Structure
 
+.
+├── weather_report.py   # Main ETL script
+├── README.md           # Project documentation
+├── requirements.txt    # Dependencies
+└── .env                # Environment variables (optional)
