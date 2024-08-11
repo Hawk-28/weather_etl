@@ -1,6 +1,6 @@
 # Weather Data ETL
 
-# Cities dataset is from: https://simplemaps.com/data/world-cities
+## Cities dataset is from: https://simplemaps.com/data/world-cities
 
 ## Overview
 
