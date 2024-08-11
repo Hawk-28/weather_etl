@@ -1,5 +1,7 @@
 # Weather Data ETL
 
+# Cities dataset is from: https://simplemaps.com/data/world-cities
+
 ## Overview
 
 This project contains a Python script that performs an ETL (Extract, Transform, Load) process on weather data obtained from the OpenWeather API. The script fetches weather data based on geographic coordinates, processes it, and stores the output in an AWS S3 bucket.
